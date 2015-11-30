@@ -20,7 +20,7 @@ import javax.swing.SwingWorker;
 public class Main extends javax.swing.JFrame {
 
        
-       
+        ClientFrame cf;
         MultiChatServer mcs;
         MultiChatClient mcc;
        
@@ -60,16 +60,15 @@ public class Main extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
-        if(LogIn.gID=="Guest"){
-         getContentPane().add(jButton1);
-         jButton1.setBounds(65, 280, 90, 42);
-        }
-         jButton1.setIcon(new javax.swing.ImageIcon("./image/메인로그인.jpg"));
-         jButton1.setPressedIcon(new javax.swing.ImageIcon("./image/메인로그인 눌림.jpg"));
-         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-             public void mouseClicked(java.awt.event.MouseEvent evt) {
+
+        getContentPane().add(jButton1);
+        jButton1.setBounds(65, 280, 90, 42);
+        jButton1.setIcon(new javax.swing.ImageIcon("./image/메인로그인.jpg"));
+        jButton1.setPressedIcon(new javax.swing.ImageIcon("./image/메인로그인 눌림.jpg"));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
-             }
+            }
         });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
