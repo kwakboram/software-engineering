@@ -5,6 +5,8 @@
  */
 package sports;
 
+import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,12 +28,17 @@ import javax.swing.LayoutStyle.ComponentPlacement;
  *
  * @author hwan
  */
-public class SetTest extends javax.swing.JFrame {
+public class SetTest extends javax.swing.JFrame  {
+	
+	
 	Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 	String day = Integer.toString(calendar.get(Calendar.DATE));
 	static int point;
 	static List<String> labelText;
-
+	
+	
+	
+	 
 	/**
 	 * Creates new form SetTest
 	 */
@@ -59,8 +66,31 @@ public class SetTest extends javax.swing.JFrame {
 		JLabel6 = new JLabel("");
 		JLabel7 = new JLabel("");
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+		//setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+		
+		this.addWindowListener( 
+			      new java.awt.event.WindowAdapter() 
+			      {
+			        public void windowClosing( java.awt.event.WindowEvent e ) 
+			        {
+			        	Main frame = new Main();
+			        	//창의 중앙 값을 계산한다.
+			        	Dimension scrnSize = Toolkit.getDefaultToolkit().getScreenSize();
+			        	int scrnWidth = frame.getSize().width;
+			        	int scrnHeight = frame.getSize().height;
+			        	int x = (scrnSize.width - scrnWidth)/2;
+			        	int y = (scrnSize.height - scrnHeight)/2;
+			        	//애플리케이션 창을 중앙으로 이동시킨다.
+			        	frame.setLocation(x,y);
+			        	//크기를 고정시킨다.
+			        	frame.setResizable(false);
+			        	//화면에 표시한다.
+			        	frame.setVisible(true);
+			          dispose() ;
+			         // System.exit( 0 );
+			        }
+			      }
+			    );
 		jLabel1.setText(day + "일 예측 결과");
 
 		jLabel2.setText("획득 포인트(결과) : " + point);
@@ -155,6 +185,7 @@ public class SetTest extends javax.swing.JFrame {
 	 *            the command line arguments
 	 */
 	public static void main(String args[]) {
+		
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 		String day = Integer.toString(calendar.get(Calendar.DATE));
 		File myfile = new File(".");
@@ -262,6 +293,8 @@ public class SetTest extends javax.swing.JFrame {
 		}
 		return deco;
 	}
+	
+	
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton jButton1;

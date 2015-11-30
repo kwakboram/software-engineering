@@ -22,7 +22,31 @@ public class LogIn extends javax.swing.JFrame {
     }
 
     private void initComponents() {
-
+    	
+    	this.addWindowListener( 
+			      new java.awt.event.WindowAdapter() 
+			      {
+			        public void windowClosing( java.awt.event.WindowEvent e ) 
+			        {
+			        	Main frame = new Main();
+			        	//창의 중앙 값을 계산한다.
+			        	Dimension scrnSize = Toolkit.getDefaultToolkit().getScreenSize();
+			        	int scrnWidth = frame.getSize().width;
+			        	int scrnHeight = frame.getSize().height;
+			        	int x = (scrnSize.width - scrnWidth)/2;
+			        	int y = (scrnSize.height - scrnHeight)/2;
+			        	//애플리케이션 창을 중앙으로 이동시킨다.
+			        	frame.setLocation(x,y);
+			        	//크기를 고정시킨다.
+			        	frame.setResizable(false);
+			        	//화면에 표시한다.
+			        	frame.setVisible(true);
+			          dispose() ;
+			         // System.exit( 0 );
+			        }
+			      }
+			    );
+    	
         jTextField1 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();

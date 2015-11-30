@@ -1,93 +1,149 @@
 package sports;
+/**
+ * 자바의 정석에서 나온 멀티채팅에  GUI를 입힘.
+ * GUI제작 : 아둔한사 (http://adunhansa.tistory.com)
+ * 추가로 할일 또는 궁금증 : 쓰레드가 왜 계속 생기는지.. 궁금하고..
+ * 또 해볼일은 현재 접속자 명단을 클라이언트 창에서 보이게 하고 싶다.
+ * 2014/04/23
+ */
 
-import java.io.BufferedReader;
+
+import java.awt.BorderLayout;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Vector;
- 
-//클라이언트로 부터 전송된 문자열을 받아서 다른 클라이언트에게 문자열을
-//보내주는 스레드
-class EchoThread extends Thread{
-       Socket socket;
-       Vector<Socket> vec;
-       public EchoThread(Socket socket, Vector<Socket> vec){
-             this.socket = socket;
-             this.vec = vec;
-       }
-       public void run(){
-             BufferedReader br = null;
-             try{
-                    br = new BufferedReader(
-                                 new InputStreamReader(socket.getInputStream()));
-                    String str =null;
-                    while(true){
-                           //클라이언트로 부터 문자열 받기
-                           str=br.readLine();
-                           //상대가 접속을 끊으면 break;
-                          
-                           if(str==null){
-                                 //벡터에서 없애기
-                                 vec.remove(socket);
-                                 break;
-                           }
-                           //연결된 소켓들을 통해서 다른 클라이언트에게 문자열 보내주기
-                           sendMsg(str);                   
-                    }
-                   
-             }catch(IOException ie){
-                    System.out.println(ie.getMessage());
-             }finally{
-                    try{
-                           if(br != null) br.close();
-                           if(socket != null) socket.close();
-                    }catch(IOException ie){
-                           System.out.println(ie.getMessage());
-                    }
-             }
-       }
-      
-       //전송받은 문자열 다른 클라이언트들에게 보내주는 메서드
-       public void sendMsg(String str){
-             try{
-                    for(Socket socket:vec){
-                           //for를 돌되 현재의 socket이 데이터를 보낸 클라이언트인 경우를 제외하고
-                           //나머지 socket들에게만 데이터를 보낸다.
-                           if(socket != this.socket){
-                                 PrintWriter pw =
-                                        new PrintWriter(socket.getOutputStream(), true);
-                                 pw.println(str);
-                                 pw.flush();
-                                 //단,여기서 얻어온 소켓들은 남의것들이기 때문에 여기서 닫으면 안된다.
-                           }
-                    }
-             }catch(IOException ie){
-                    System.out.println(ie.getMessage());
-             }
-       }
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+
+class FrServer extends JFrame{
+	JTextArea ta;
+	JTextField tf;
+	
+	public FrServer(){
+		setSize(600, 400);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("채팅방 서버!"); 
+		setLayout(new BorderLayout());
+		
+		JLabel label = new JLabel("This is a server!");
+		ta= new JTextArea(25, 40);
+		tf = new JTextField(25);
+		
+		add(label, BorderLayout.NORTH);
+		add(ta, BorderLayout.CENTER);
+		add(tf, BorderLayout.SOUTH);
+		setVisible(true);
+	}
 }
- 
- 
-public class MultiChatServer extends Thread{
-       public static void main(String[] args) {
-             ServerSocket server = null;
-             Socket socket =null;
-             //클라이언트와 연결된 소켓들을 배열처럼 저장할 벡터객체 생성
-             Vector<Socket> vec = new Vector<Socket>();
-             try{
-                    server= new ServerSocket(3000);
-                    while(true){
-                           System.out.println("접속대기중..");
-                           socket = server.accept();
-                           //클라이언트와 연결된 소켓을 벡터에 담기
-                           vec.add(socket);
-                           //스레드 구동
-                           new EchoThread(socket, vec).start();
-                    }
-             }catch(IOException ie){
-                    System.out.println(ie.getMessage());
-             }
-       }
-}
+public class MultiChatServer {
+	HashMap clients;
+	
+	MultiChatServer(){
+		clients = new HashMap();
+		Collections.synchronizedMap(clients);
+	}
+	
+	//메인에서는 새로 생성자 만들고 스타트를 실행! 
+		public static void main(String args[]){
+			FrServer f = new FrServer();
+			new MultiChatServer().start();
+			
+		}
+	
+	public void start(){
+		ServerSocket serverSocket = null;
+		Socket socket = null;
+		
+		try{
+			serverSocket = new ServerSocket(7777);
+			System.out.println("서버가 시작되었다");
+			
+			while(true){
+				socket=serverSocket.accept();
+				System.out.println("["+socket.getInetAddress()+"]"
+						+ "에서 접속하셨습니다.");
+				//서버 리시버 하나 만든다. 쓰레드라는 이름으로~
+				//(궁금)근데 같은 이름으로 계속 생성해도 되는 것인가..?반복문인데..?
+				ServerReceiver thread = new ServerReceiver(socket);
+				thread.start();
+				
+				System.out.println("쓰레드 네임 : "+thread.getName());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}//start
+	
+	void sendToAll(String msg){
+		//메시지를 받아서 전부 날려주는 소스다.
+		Iterator it = clients.keySet().iterator();
+		
+		while(it.hasNext()){
+			try{
+				DataOutputStream out = 
+						(DataOutputStream)clients.get(it.next());
+				out.writeUTF(msg);
+			}catch(IOException e){
+				System.out.println("sendToall 입출력 에러");
+			}
+			}//while
+		}//sendToAll
+	
+	
+	
+	
+	//서버 리시버이다..
+	class ServerReceiver extends Thread{
+		Socket socket;
+		DataInputStream in;
+		DataOutputStream out;
+		
+		//생성자에서는 서버소켓을 받아서 인풋아웃풋스트림을 하나 만들고 연결한다.
+		ServerReceiver(Socket socket){
+			this.socket = socket;
+			try{
+				in = new DataInputStream(socket.getInputStream());
+				out = new DataOutputStream(socket.getOutputStream());
+			}catch(IOException e){
+				System.out.println("서버 리시버 소켓 IO 에러");
+			}
+		}//생성자 끝
+		
+		public void run(){
+			String name="";
+			
+			try{
+				name = in.readUTF();
+				sendToAll("#"+name+"님이 들어오셨습니다.");
+				
+				clients.put(name, out);
+				System.out.println("현재 접속자 수는 "+clients.size()+"입니다");
+				System.out.print("현재 접속자 목록 : ");
+				
+				while(in!=null){
+					sendToAll(in.readUTF());
+				}
+			}catch(IOException e){
+				System.out.println("리시버 도중 io에러");
+			}finally{
+				sendToAll("#"+name+"님이 나가셨습니다~");
+				clients.remove(name);
+				System.out.println("["+socket.getInetAddress()+
+						":"+socket.getPort()+"] 에서 접속을 종료함");
+				System.out.println("현재 접속자 수는 "+clients.size()+"입니다");
+				
+			}//try
+		}//run
+	}//ReceiverThread
+}//Class
+
+
