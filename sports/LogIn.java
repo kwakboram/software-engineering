@@ -55,7 +55,7 @@ public class LogIn extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("맑은고딕", 0 , 16));
+        jLabel4.setFont(new java.awt.Font("맑은고딕", 1 , 16));
         jLabel4.setForeground(new java.awt.Color(77, 77, 77));
         jLabel4.setText("L O G I N");
         getContentPane().add(jLabel4);

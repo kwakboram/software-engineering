@@ -76,7 +76,7 @@ public class Join extends javax.swing.JFrame {
             }
         });
         
-        jLabel1.setFont(new java.awt.Font("맑은고딕", 0 , 16));
+        jLabel1.setFont(new java.awt.Font("맑은고딕", 1 , 16));
         jLabel1.setForeground(new java.awt.Color(77, 77, 77));
         jLabel1.setText("J O I N");
         getContentPane().add(jLabel1);

@@ -1,4 +1,4 @@
-﻿/*9월의 오늘날짜에 해당하는 경기를 추출하는 예제 */
+/*9월의 오늘날짜에 해당하는 경기를 추출하는 예제 */
 
 package sports;
 import java.io.IOException;

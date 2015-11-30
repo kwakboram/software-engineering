@@ -62,6 +62,9 @@ public class Match extends javax.swing.JFrame {
 		jLabel3 = new javax.swing.JLabel();
 		jLabel4 = new javax.swing.JLabel();
 		jLabel5 = new javax.swing.JLabel();
+		jLabel6 = new javax.swing.JLabel();
+		jLabel7 = new javax.swing.JLabel();
+		jLabel8 = new javax.swing.JLabel();
 		jRadioButton1 = new javax.swing.JRadioButton();
 		jRadioButton2 = new javax.swing.JRadioButton();
 		jRadioButton3 = new javax.swing.JRadioButton();
@@ -87,15 +90,21 @@ public class Match extends javax.swing.JFrame {
 		
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle("MATCH");
-		setPreferredSize(new java.awt.Dimension(550, 500));
+		setPreferredSize(new java.awt.Dimension(540, 560));
 		setResizable(false);
 		getContentPane().setLayout(null);
 		pack();
+		jLabel8.setFont(new java.awt.Font("맑은고딕", 1 , 16));
+        jLabel8.setForeground(new java.awt.Color(77, 77, 77));
+        jLabel8.setText("M A T C H");
+        jLabel8.setForeground(new java.awt.Color(77, 77, 77));
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(220, 20, 200, 30);
 		
 		jButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(date2==0){
-					JOptionPane.showMessageDialog(null, "날짜를 선택하세요.","", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "날짜를 선택하세요.","", JOptionPane.WARNING_MESSAGE);//////////////////여기수정함 (날짜선택안했을경우)
 					return;
 				}
 				try { 
@@ -111,6 +120,7 @@ public class Match extends javax.swing.JFrame {
 					String data5=getMatch5();
 					pw.println(data5);
 					pw.close();
+				
 					JOptionPane.showMessageDialog(null, "저장되었습니다.", "성공", JOptionPane.INFORMATION_MESSAGE);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -169,15 +179,19 @@ public class Match extends javax.swing.JFrame {
 			}
 		});
 		getContentPane().add(jComboBox1);
-		jComboBox1.setBounds(43, 33, 200, 21);
+		jComboBox1.setBounds(43, 78, 200, 30);
 
-		jButton1.setText("확인");
+		jButton1.setIcon(new javax.swing.ImageIcon("./image/확인.jpg"));
+        jButton1.setPressedIcon(new javax.swing.ImageIcon("./image/확인 눌림.jpg"));
+        getContentPane().add(jButton1);
+        jButton1.setBounds(400,440, 79, 39);
+        jButton1.setBorderPainted(false);
+        
 		
+		jLabel6.setIcon(new javax.swing.ImageIcon("./image/배경.jpg"));
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(0, 0, 540, 560);
 		
-		
-		getContentPane().add(jButton1);
-		jButton1.setBounds(420, 411, 77, 23);
-
 
 
 	}
@@ -475,9 +489,10 @@ public class Match extends javax.swing.JFrame {
 		select=select.substring(0,select.length() - 1);
 		int date = Integer.parseInt(select);//선택한 날짜
 		
+		
 		date2 = date; //저장할파일이름
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-		List<String> matches = getMatches(1);/////////////////////////
+		List<String> matches = getMatches(date);///////////////////////// 수정필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 		System.out.println(matches.size()/2);
@@ -487,20 +502,23 @@ public class Match extends javax.swing.JFrame {
 				jLabel1.setVisible(true);
 				jLabel1.setText(matches.get(0)+"          vs          "+matches.get(1));
 				getContentPane().add(jLabel1);
-				jLabel1.setBounds(56, 142, 200, 23);
+				jLabel1.setBounds(56, 152, 200, 23);
 				
 				jRadioButton1.setVisible(true);
 				jRadioButton2.setVisible(true);
 				jRadioButton3.setVisible(true);
 				getContentPane().add(jRadioButton1);
-				jRadioButton1.setBounds(276, 142, 79, 23);
+				jRadioButton1.setBounds(276, 152, 79, 23);
 				jRadioButton1.setText(matches.get(0));
+				jRadioButton1.setOpaque(false);
 				getContentPane().add(jRadioButton2);
-				jRadioButton2.setBounds(355, 142, 55, 23);
+				jRadioButton2.setBounds(355, 152, 55, 23);
 				jRadioButton2.setText("무");
+				jRadioButton2.setOpaque(false);
 				getContentPane().add(jRadioButton3);
-				jRadioButton3.setBounds(428, 142, 79, 23);
+				jRadioButton3.setBounds(428, 152, 79, 23);
 				jRadioButton3.setText(matches.get(1));
+				jRadioButton3.setOpaque(false);
 							
 				//countMatchNum++;
 			}
@@ -508,20 +526,23 @@ public class Match extends javax.swing.JFrame {
 				jLabel2.setVisible(true);
 				jLabel2.setText(matches.get(2)+"          vs          "+matches.get(3));
 				getContentPane().add(jLabel2);
-				 jLabel2.setBounds(56, 183, 200, 23);
+				 jLabel2.setBounds(56, 203, 200, 23);
 				
 				jRadioButton4.setVisible(true);
 				jRadioButton5.setVisible(true);
 				jRadioButton6.setVisible(true);
 				getContentPane().add(jRadioButton4);
-				jRadioButton4.setBounds(276, 183, 79, 23);
+				jRadioButton4.setBounds(276, 203, 79, 23);
 				jRadioButton4.setText(matches.get(2));
+				jRadioButton4.setOpaque(false);
 				getContentPane().add(jRadioButton5);
-				jRadioButton5.setBounds(355, 183, 55, 23);
+				jRadioButton5.setBounds(355, 203, 55, 23);
 				jRadioButton5.setText("무");
+				jRadioButton5.setOpaque(false);
 				getContentPane().add(jRadioButton6);
-				jRadioButton6.setBounds(290, 140, 80, 23);
-				jRadioButton6.setBounds(428, 183, 79, 23);
+				jRadioButton6.setBounds(428, 203, 79, 23);
+				jRadioButton6.setText(matches.get(3));
+				jRadioButton6.setOpaque(false);
 
 				//countMatchNum++;
 			}
@@ -529,20 +550,23 @@ public class Match extends javax.swing.JFrame {
 				jLabel3.setVisible(true);
 				jLabel3.setText(matches.get(4)+"          vs          "+matches.get(5));
 				getContentPane().add(jLabel3);
-				jLabel3.setBounds(56, 224, 200, 23);
+				jLabel3.setBounds(56, 254, 200, 23);
 				
 				jRadioButton7.setVisible(true);
 				jRadioButton8.setVisible(true);
 				jRadioButton9.setVisible(true);
 				getContentPane().add(jRadioButton7);
-				jRadioButton7.setBounds(276, 224, 79, 23);
+				jRadioButton7.setBounds(276, 254, 79, 23);
 				jRadioButton7.setText(matches.get(4));
+				jRadioButton7.setOpaque(false);
 				getContentPane().add(jRadioButton8);
-				jRadioButton8.setBounds(355, 224, 55, 23);
+				jRadioButton8.setBounds(355, 254, 55, 23);
 				jRadioButton8.setText("무");
+				jRadioButton8.setOpaque(false);
 				getContentPane().add(jRadioButton9);
-				jRadioButton9.setBounds(428, 224, 79, 23);
+				jRadioButton9.setBounds(428, 254, 79, 23);
 				jRadioButton9.setText(matches.get(5));
+				jRadioButton9.setOpaque(false);
 
 				//countMatchNum++;
 			}
@@ -550,45 +574,54 @@ public class Match extends javax.swing.JFrame {
 				jLabel4.setVisible(true);
 				jLabel4.setText(matches.get(6)+"           vs          "+matches.get(7));
 				getContentPane().add(jLabel4);
-				jLabel4.setBounds(56, 265, 200, 23);
+				jLabel4.setBounds(56, 305, 200, 23);
 				
 				jRadioButton10.setVisible(true);
 				jRadioButton11.setVisible(true);
 				jRadioButton12.setVisible(true);
+				
 				getContentPane().add(jRadioButton10);
-				jRadioButton10.setBounds(276, 265, 79, 23);
+				jRadioButton10.setBounds(276, 305, 79, 23);
 				jRadioButton10.setText(matches.get(6));
+				jRadioButton10.setOpaque(false);
 				getContentPane().add(jRadioButton11);
-				 jRadioButton11.setBounds(355, 265, 55, 23);
+				 jRadioButton11.setBounds(355, 305, 55, 23);
 				jRadioButton11.setText("무");
+				jRadioButton11.setOpaque(false);
 				getContentPane().add(jRadioButton12);
-				jRadioButton12.setBounds(428, 265, 79, 23);
+				jRadioButton12.setBounds(428, 305, 79, 23);
 				jRadioButton12.setText(matches.get(7));
-
+				jRadioButton12.setOpaque(false);
 			}	
 			else if(countMatchNum==4){
 				jLabel5.setVisible(true);
 				jLabel5.setText(matches.get(8)+"          vs          "+matches.get(9));
 				getContentPane().add(jLabel5);
-				 jLabel5.setBounds(56, 306, 200, 23);
+				 jLabel5.setBounds(56, 356, 200, 23);
 				
 				jRadioButton13.setVisible(true);
 				jRadioButton14.setVisible(true);
 				jRadioButton15.setVisible(true);
+				
 				getContentPane().add(jRadioButton13);
-				jRadioButton13.setBounds(276, 306, 79, 23);
+				jRadioButton13.setBounds(276, 356, 79, 23);
 				jRadioButton13.setText(matches.get(8));
+				jRadioButton13.setOpaque(false);
 				getContentPane().add(jRadioButton14);
-				jRadioButton14.setBounds(355, 306, 55, 23);
+				jRadioButton14.setBounds(355, 356, 55, 23);
 				jRadioButton14.setText("무");
+				jRadioButton14.setOpaque(false);
 				getContentPane().add(jRadioButton15);
-				jRadioButton15.setBounds(428, 306, 79, 23);
+				jRadioButton15.setBounds(428, 356, 79, 23);
 				jRadioButton15.setText(matches.get(9));
-
+				jRadioButton15.setOpaque(false);
 				//countMatchNum++;
 			}
 		}
-		 //pack();
+		
+		jLabel7.setIcon(new javax.swing.ImageIcon("./image/배경.jpg"));
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(0, 0, 540, 560);
 	}
 
 	public void Visible_false(){
@@ -598,6 +631,8 @@ public class Match extends javax.swing.JFrame {
 		jLabel3.setVisible(false);
 		jLabel4.setVisible(false);
 		jLabel5.setVisible(false);
+		jLabel6.setVisible(false);
+		//jLabel7.setVisible(false);
 		jRadioButton1.setVisible(false);
 		jRadioButton2.setVisible(false);
 		jRadioButton3.setVisible(false);
@@ -632,7 +667,10 @@ public class Match extends javax.swing.JFrame {
 	private javax.swing.JLabel jLabel3;
 	private javax.swing.JLabel jLabel4;
 	private javax.swing.JLabel jLabel5;
-		private javax.swing.JRadioButton jRadioButton1;
+	private javax.swing.JLabel jLabel6;
+	private javax.swing.JLabel jLabel7;
+	private javax.swing.JLabel jLabel8;
+	private javax.swing.JRadioButton jRadioButton1;
 	private javax.swing.JRadioButton jRadioButton10;
 	private javax.swing.JRadioButton jRadioButton11;
 	private javax.swing.JRadioButton jRadioButton12;
