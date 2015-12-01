@@ -339,7 +339,7 @@ public class Match extends javax.swing.JFrame {
 				if (tmp > DAY)
 					break;
 				if (!(set.contains(tmp))) {
-					if (checkDate(e.text(),DAY)) {
+					if (tmp==DAY) {
 						matches.add(home.get(index).text());
 						matches.add(away.get(index).text());
 					}
@@ -382,7 +382,7 @@ public class Match extends javax.swing.JFrame {
 				if (tmp > DAY)
 					break;
 				if (!(set.contains(tmp))) {
-					if (checkDate(e.text(),DAY)) {
+					if (tmp==DAY) {
 						results.add(getWinner(setMatchResults(score.get(index).text())));
 						//System.out.println(tmp+"일 "+setMatchResults(score.get(index).text()));
 					}
@@ -425,15 +425,6 @@ public class Match extends javax.swing.JFrame {
 	}
 
 	//s의 날짜와 주어진 날짜가 동일한지 파악하여 원하는 날의 경기 결과를 가져 올 수 있게하는 도우미
-	public static boolean checkDate(String s,int day) {
-		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-		//int day = calendar.get(Calendar.DATE);
-		String[] s1 = s.split("\\(");
-		int date = Integer.parseInt(s1[0]);
-
-		return (date == day);
-	}
-
 	//경기를 하지 않는 날을 설정한다.
 	public static void setEmptyDate(Elements x, Set<Integer> s) {
 		for (Element e : x) {
@@ -519,9 +510,8 @@ public class Match extends javax.swing.JFrame {
 		date2 = calendar.get(Calendar.DATE); //저장할파일이름
 		
 		List<String> matches = getMatches(calendar);///////////////////////// 수정필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
 		System.out.println(matches.size()/2);
+				
 		for(int countMatchNum = 0;countMatchNum<matches.size()/2;countMatchNum++){
 
 			if(countMatchNum==0){
