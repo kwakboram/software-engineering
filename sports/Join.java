@@ -105,12 +105,14 @@ public class Join extends javax.swing.JFrame {
         jPasswordField2.setText("jPasswordField2");
         getContentPane().add(jPasswordField2);
         jPasswordField2.setBounds(130, 210, 180, 30);
-
+        
+        jButton1.setBorderPainted(false);
         jButton1.setIcon(new javax.swing.ImageIcon("./image/JOIN.jpg"));
         jButton1.setPressedIcon(new javax.swing.ImageIcon("./image/JOIN 눌림.jpg"));
         getContentPane().add(jButton1);
         jButton1.setBounds(230, 270, 79, 39);
         
+        jButton2.setBorderPainted(false);
         jButton2.setIcon(new javax.swing.ImageIcon("./image/취소.jpg"));
         jButton2.setPressedIcon(new javax.swing.ImageIcon("./image/취소 눌림.jpg"));
         getContentPane().add(jButton2);
@@ -190,29 +192,7 @@ public class Join extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Join.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Join.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Join.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Join.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-      
+            
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
