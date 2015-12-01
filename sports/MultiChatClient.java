@@ -43,7 +43,7 @@ public class MultiChatClient {
 		FrClient f = new FrClient(nick);
 		Socket socket;
 		try{
-			String serverIp = "127.0.0.1";
+			String serverIp = "165.229.125.46";
 			//소켓을 생성하여 연결을 요청
 			socket = new Socket(serverIp, 7777);
 			System.out.println("서버에 연결되었습니다");
@@ -130,10 +130,10 @@ public class MultiChatClient {
 		public FrClient(String nick){
 			setSize(600, 400);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			setTitle(nick+"의 채팅방 클라이언트!"); 
+			setTitle(nick+"의 채팅방"); 
 			setLayout(new BorderLayout());
 			
-			JLabel label = new JLabel("This is a server!");
+			JLabel label = new JLabel("승부예측 채팅방");
 			ta= new JTextArea(25, 40);
 			tf = new JTextField(25);
 			tf.addActionListener(this);
