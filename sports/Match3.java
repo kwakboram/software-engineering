@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//오늘이 xx월(월정보는 테스트용으로 고정되어있다) 30 일이라 두고 테스트를 해본다.
 package sports;
 
 import org.jsoup.Jsoup;
@@ -32,14 +28,14 @@ import java.awt.event.ActionEvent;
  *
  * @author hwan
  */
-public class Match extends javax.swing.JFrame {
+public class Match3 extends javax.swing.JFrame {
 
 	/**
 	 * Creates new form Match
 	 * @throws IOException 
 	 */
 	private int date2;
-	public Match() throws IOException {
+	public Match3() throws IOException {
 		initComponents();
 	}
 
@@ -65,7 +61,6 @@ public class Match extends javax.swing.JFrame {
 		jLabel6 = new javax.swing.JLabel();
 		jLabel7 = new javax.swing.JLabel();
 		jLabel8 = new javax.swing.JLabel();
-		jLabel9 = new javax.swing.JLabel();
 		jRadioButton1 = new javax.swing.JRadioButton();
 		jRadioButton2 = new javax.swing.JRadioButton();
 		jRadioButton3 = new javax.swing.JRadioButton();
@@ -160,7 +155,7 @@ public class Match extends javax.swing.JFrame {
 
 
 		//이 리스트들의 결과들로 GUI를 채우면 됩니다.
-		List<String> matches = getMatches(calendar);
+		//List<String> matches = getMatches(calendar);
 
 
 		//realresult.txt에는 아래의 리스트 정보가 들어가게 되는데...
@@ -170,6 +165,8 @@ public class Match extends javax.swing.JFrame {
 		
 		
 		jComboBox1=new javax.swing.JComboBox();
+		calendar.set(Calendar.MONTH, 7);
+		calendar.set(Calendar.DATE, 29);//테스트용s
 		jComboBox1.addItem("날짜를 선택해주세요");
 		calendar.add(Calendar.DATE, 1);
 		jComboBox1.addItem(calendar.get(Calendar.DATE)+"일");
@@ -191,25 +188,13 @@ public class Match extends javax.swing.JFrame {
         jButton1.setBounds(400,440, 79, 39);
         jButton1.setBorderPainted(false);
         
-        java.text.SimpleDateFormat sd=new java.text.SimpleDateFormat("yyyy년 09월 dd일", java.util.Locale.KOREA);
-        jLabel9.setText("오늘날짜 : "+sd.format(new java.util.Date())); // NOI18N
-        System.out.println(sd.format(new java.util.Date()));
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(320, 90, 205, 15);
-        jLabel9.setFont(new java.awt.Font("맑은고딕", 0 , 13));
-        jLabel9.setForeground(new java.awt.Color(77, 77, 77));
-        
 		
 		jLabel6.setIcon(new javax.swing.ImageIcon("./image/배경.jpg"));
         getContentPane().add(jLabel6);
         jLabel6.setBounds(0, 0, 540, 560);
-       
-        /////////////////////////////////////////////////////////////////////MM이어야함
-       
-        
+		
 
-        
-        
+
 	}
 	/**
 	 * @param args the command line arguments
@@ -218,7 +203,7 @@ public class Match extends javax.swing.JFrame {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new Match().setVisible(true);
+					new Match3().setVisible(true);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -422,7 +407,7 @@ public class Match extends javax.swing.JFrame {
 		else
 			MONTH = Integer.toString(calendar.get(Calendar.MONTH) + 1);
 		return "http://score.sports.media.daum.net/schedule/baseball/kbo/main.daum?game_year="
-		+ YEAR + "&game_month=09";//원래라면 + MONTH 여야함
+				+YEAR+"&game_month="+MONTH;//원래라면 + MONTH 여야함
 	}
 	//메소드 오버로딩 아래의 인자를 받지않는 getDocumentStr은 getResult용이다.
 	public static String getDocumentStr(){
@@ -434,10 +419,11 @@ public class Match extends javax.swing.JFrame {
 		else
 			MONTH = Integer.toString(calendar.get(Calendar.MONTH) + 1);
 		return "http://score.sports.media.daum.net/schedule/baseball/kbo/main.daum?game_year="
-		+ YEAR + "&game_month=09";//원래라면 + MONTH 여야함
+		+YEAR+"&game_month="+MONTH;//원래라면 + MONTH 여야함
 	}
 
 	//s의 날짜와 주어진 날짜가 동일한지 파악하여 원하는 날의 경기 결과를 가져 올 수 있게하는 도우미
+	
 	//경기를 하지 않는 날을 설정한다.
 	public static void setEmptyDate(Elements x, Set<Integer> s) {
 		for (Element e : x) {
@@ -518,13 +504,17 @@ public class Match extends javax.swing.JFrame {
 		//select=select.substring(0,select.length() - 1);
 		//int date = Integer.parseInt(select);//선택한 날짜
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+		calendar.set(calendar.MONTH, 7);
+		calendar.set(Calendar.DATE, 29);//테스트용
+		
 		calendar.add(Calendar.DATE, selectIndex);//날짜 수정
 		
 		date2 = calendar.get(Calendar.DATE); //저장할파일이름
 		
 		List<String> matches = getMatches(calendar);///////////////////////// 수정필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 		System.out.println(matches.size()/2);
-				
 		for(int countMatchNum = 0;countMatchNum<matches.size()/2;countMatchNum++){
 
 			if(countMatchNum==0){
@@ -699,7 +689,6 @@ public class Match extends javax.swing.JFrame {
 	private javax.swing.JLabel jLabel6;
 	private javax.swing.JLabel jLabel7;
 	private javax.swing.JLabel jLabel8;
-	private javax.swing.JLabel jLabel9;
 	private javax.swing.JRadioButton jRadioButton1;
 	private javax.swing.JRadioButton jRadioButton10;
 	private javax.swing.JRadioButton jRadioButton11;

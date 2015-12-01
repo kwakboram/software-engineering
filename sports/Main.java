@@ -130,8 +130,8 @@ public class Main extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        java.text.SimpleDateFormat sd=new java.text.SimpleDateFormat("yyyy년 MM월 dd일", java.util.Locale.KOREA);
-        
+        java.text.SimpleDateFormat sd=new java.text.SimpleDateFormat("yyyy년 9월 dd일", java.util.Locale.KOREA);
+        /////////////////////////////////////////////////////////////////////MM이어야함
         jLabel1.setText(sd.format(new java.util.Date())); // NOI18N
         System.out.println(sd.format(new java.util.Date()));
         getContentPane().add(jLabel1);

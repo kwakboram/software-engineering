@@ -32,36 +32,51 @@ public class Ranking{
 			Vector data = new Vector();
 			Vector row = new Vector();
 			int rank=1;
+
 			while(rs.next())
 			{
 				row = new Vector(c);
+				row.add(rank++);
 				for(int i = 1; i <= c; i++){
-					row.add(rank++);
+					//row.add(rank++);
 					row.add(rs.getString(i));
 				}
 				data.add(row);
 			}
 			JFrame frame = new JFrame();
-
-			frame.setSize(500,500);
+			
+			frame.setSize(350,420);
+			frame.setResizable(false);
 			frame.setLocationRelativeTo(null);
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 			JPanel panel = new JPanel();
 			JTable table = new JTable(data,column);
-
+			
 			JScrollPane jsp = new JScrollPane(table);
-
+			//jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			panel.setLayout(new BorderLayout());
 			panel.add(jsp,BorderLayout.CENTER);
+		
+			javax.swing.table.DefaultTableCellRenderer tScheduleCellRenderer = new javax.swing.table.DefaultTableCellRenderer(); //가운데정렬
+			tScheduleCellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+			javax.swing.table.TableColumnModel tcmSchedule = table.getColumnModel();
+			for (int i = 0; i < tcmSchedule.getColumnCount(); i++) {
+				tcmSchedule.getColumn(i).setCellRenderer(tScheduleCellRenderer);
+			}
 
+		
 			JButton button = new JButton("확인");
-
 			panel.add(button,BorderLayout.PAGE_END);
 
 			frame.setContentPane(panel);
 			frame.setVisible(true);
-
+			
+			JLabel jLabel1 = new JLabel();
+			jLabel1 = new javax.swing.JLabel();
+			panel.add(jLabel1,BorderLayout.PAGE_START);
+			
+			
 			button.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent evt) {
 					frame.dispose();
@@ -79,6 +94,5 @@ public class Ranking{
 				JOptionPane.showMessageDialog(null, "ERROR CLOSE");
 			}
 		}
-
 	}
 }
