@@ -84,8 +84,8 @@ public class Match extends javax.swing.JFrame {
 
 	
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-		int day = calendar.get(Calendar.DATE);
-		int month = calendar.get(Calendar.MONTH);
+		//int day = calendar.get(Calendar.DATE);
+		//int month = calendar.get(Calendar.MONTH);
 		jComboBox1 = new javax.swing.JComboBox<>();
 		
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -159,7 +159,7 @@ public class Match extends javax.swing.JFrame {
 
 
 		//이 리스트들의 결과들로 GUI를 채우면 됩니다.
-		List<String> matches = getMatches(calendar.get(Calendar.DATE));
+		List<String> matches = getMatches(calendar);
 
 
 		//realresult.txt에는 아래의 리스트 정보가 들어가게 되는데...
@@ -170,9 +170,12 @@ public class Match extends javax.swing.JFrame {
 		
 		jComboBox1=new javax.swing.JComboBox();
 		jComboBox1.addItem("날짜를 선택해주세요");
-		jComboBox1.addItem(calendar.get(Calendar.DATE)+1+"일");
-		jComboBox1.addItem(calendar.get(Calendar.DATE)+2+"일");
-		jComboBox1.addItem(calendar.get(Calendar.DATE)+3+"일");
+		calendar.add(Calendar.DATE, 1);
+		jComboBox1.addItem(calendar.get(Calendar.DATE)+"일");
+		calendar.add(Calendar.DATE, 1);
+		jComboBox1.addItem(calendar.get(Calendar.DATE)+"일");
+		calendar.add(Calendar.DATE, 1);
+		jComboBox1.addItem(calendar.get(Calendar.DATE)+"일");
 		jComboBox1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jComboBox1ActionPerformed(evt);
@@ -306,15 +309,17 @@ public class Match extends javax.swing.JFrame {
 		}
 	}
 
-	public static List<String> getMatches(int day_of_month) {
+	public static List<String> getMatches(Calendar calendar) {
 
 		Document doc;
 
-		int DAY=day_of_month;
+		//int DAY=day_of_month;
+		int DAY = calendar.get(Calendar.DATE);
 		Set<Integer> set = new HashSet<>();
 		List<String> matches = new ArrayList<>();
 
-		String conStr = getDocumentStr();
+		//오버로딩한 getDocumentStr 사용
+		String conStr = getDocumentStr(calendar);
 
 		try {
 			doc = Jsoup.connect(conStr).get();
@@ -351,10 +356,12 @@ public class Match extends javax.swing.JFrame {
 	}
 
 	//승부결과를 List<String>으로 반환한다. 리스트의 사이즈는 경기의 수와 같다.
-	public static List<String> getResults(int day_of_month){
+	public static List<String> getResults(Calendar cal){
 		Document doc;
 
-		int DAY = day_of_month;
+		//int DAY = day_of_month;
+		int DAY = cal.get(Calendar.DATE);//DAY정보를 얻는다.
+		
 		Set<Integer> set = new HashSet<>();
 		List<String> results = new ArrayList<>();
 
@@ -392,6 +399,19 @@ public class Match extends javax.swing.JFrame {
 	}
 
 	//conStr 설정
+	//인자로 받는 calendar<<--getMatches에서 받아옴
+	public static String getDocumentStr(Calendar calendar){
+		//final Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+		String YEAR = Integer.toString(calendar.get(Calendar.YEAR));
+		String MONTH;
+		if ((calendar.get(Calendar.MONTH) + 1) < 10)
+			MONTH = "0" + Integer.toString(calendar.get(Calendar.MONTH) + 1);
+		else
+			MONTH = Integer.toString(calendar.get(Calendar.MONTH) + 1);
+		return "http://score.sports.media.daum.net/schedule/baseball/kbo/main.daum?game_year="
+		+ YEAR + "&game_month=09";//원래라면 + MONTH 여야함
+	}
+	//메소드 오버로딩 아래의 인자를 받지않는 getDocumentStr은 getResult용이다.
 	public static String getDocumentStr(){
 		final Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 		String YEAR = Integer.toString(calendar.get(Calendar.YEAR));
@@ -483,16 +503,22 @@ public class Match extends javax.swing.JFrame {
 	private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
 		javax.swing.JComboBox sel_com = (javax.swing.JComboBox)evt.getSource();
 		String select = (String)sel_com.getSelectedItem();
-
+		//현재날짜 기준으로 selectIndex를 더해준다.
+		int selectIndex = sel_com.getSelectedIndex();
+		
+		//아무것도 안보여 주기 위한 부분
 		if(select.equals("날짜를 선택해주세요")) return;
 		Visible_false();//화면 숨기기
-		select=select.substring(0,select.length() - 1);
-		int date = Integer.parseInt(select);//선택한 날짜
 		
 		
-		date2 = date; //저장할파일이름
+		//select=select.substring(0,select.length() - 1);
+		//int date = Integer.parseInt(select);//선택한 날짜
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-		List<String> matches = getMatches(date);///////////////////////// 수정필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		calendar.add(Calendar.DATE, selectIndex);//날짜 수정
+		
+		date2 = calendar.get(Calendar.DATE); //저장할파일이름
+		
+		List<String> matches = getMatches(calendar);///////////////////////// 수정필요!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 		System.out.println(matches.size()/2);

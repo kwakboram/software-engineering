@@ -60,13 +60,11 @@ public class SetTest extends javax.swing.JFrame  {
 		jLabel1 = new javax.swing.JLabel();
 		jLabel2 = new javax.swing.JLabel();
 		jButton1 = new javax.swing.JButton();
-		jLabel3 = new JLabel();
-		jLabel4 = new JLabel();
-		jLabel5 = new JLabel();
-		jLabel6 = new JLabel();
-		jLabel7 = new JLabel();
-		jLabel8 = new JLabel();
-		jLabel9 = new JLabel();
+		JLabel3 = new JLabel("");
+		JLabel4 = new JLabel("");
+		JLabel5 = new JLabel("");
+		JLabel6 = new JLabel("");
+		JLabel7 = new JLabel("");
 
 		//setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		
@@ -93,28 +91,11 @@ public class SetTest extends javax.swing.JFrame  {
 			        }
 			      }
 			    );
-		
-		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("결과확인");
-        setPreferredSize(new java.awt.Dimension(380	, 430));
-        setResizable(false);
-        getContentPane().setLayout(null);
-        
-        
 		jLabel1.setText(day + "일 예측 결과");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(40, 50, 124, 15);
-        
-		jLabel2.setText("획득 포인트(결과) : " + point);
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(40, 320, 200, 15);
 
-	
-		getContentPane().add(jButton1);
-        jButton1.setBounds(260, 320, 79, 39);
-        jButton1.setIcon(new javax.swing.ImageIcon("./image/확인.jpg"));
-        jButton1.setPressedIcon(new javax.swing.ImageIcon("./image/확인 눌림.jpg"));
-        jButton1.setBorderPainted(false);
+		jLabel2.setText("획득 포인트(결과) : " + point);
+
+		jButton1.setText("확인");
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton1ActionPerformed(evt);
@@ -122,48 +103,40 @@ public class SetTest extends javax.swing.JFrame  {
 		});
 
 		if (labelText.size() == 0)
-			jLabel3.setText("결과 없음");
+			JLabel3.setText("결과 없음");
 		for (int i = 0; i < labelText.size(); i++) {
 			if (i == 0)
-				jLabel3.setText(labelText.get(i));
+				JLabel3.setText(labelText.get(i));
 			else if (i == 1)
-				jLabel4.setText(labelText.get(i));
+				JLabel4.setText(labelText.get(i));
 			else if (i == 2)
-				jLabel5.setText(labelText.get(i));
+				JLabel5.setText(labelText.get(i));
 			else if (i == 3)
-				jLabel6.setText(labelText.get(i));
+				JLabel6.setText(labelText.get(i));
 			else if (i == 4)
-				jLabel7.setText(labelText.get(i));
+				JLabel7.setText(labelText.get(i));
 		}
-		
-              
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(40, 110,200, 15);
-
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(40, 150,200, 15);
-
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(40, 190, 200, 15);
-
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(40, 230, 200, 15);
-
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(40, 270, 200, 15);
-        
-        
-        java.text.SimpleDateFormat sd=new java.text.SimpleDateFormat("yyyy년 MM월 dd일", java.util.Locale.KOREA);
-        
-        jLabel8.setText(sd.format(new java.util.Date()));
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(200, 50,150, 15);
-        
-        jLabel9.setIcon(new javax.swing.ImageIcon("./image/배경.jpg"));
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(0, 0, 380	, 430);
-
-
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addContainerGap()
+						.addGroup(layout.createParallelGroup(Alignment.LEADING)
+								.addGroup(layout.createSequentialGroup()
+										.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 118,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(0, 258, Short.MAX_VALUE))
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+								.addComponent(jButton1)).addComponent(JLabel3).addComponent(JLabel4)
+						.addComponent(JLabel5).addComponent(JLabel6).addComponent(JLabel7)).addContainerGap()));
+		layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGap(20).addComponent(jLabel1).addGap(18)
+						.addComponent(JLabel3).addGap(18).addComponent(JLabel4).addGap(18).addComponent(JLabel5)
+						.addGap(18).addComponent(JLabel6).addGap(18).addComponent(JLabel7)
+						.addPreferredGap(ComponentPlacement.RELATED, 58, Short.MAX_VALUE).addGroup(layout
+								.createParallelGroup(Alignment.BASELINE).addComponent(jLabel2).addComponent(jButton1))
+				.addGap(19)));
+		getContentPane().setLayout(layout);
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -218,7 +191,6 @@ public class SetTest extends javax.swing.JFrame  {
 		File myfile = new File(".");
 		List<String> file = new ArrayList<>();
 		labelText = new ArrayList<String>();
-		
 		// myfile.listFile
 		// .txt 즉 승부예측 파일들의 이름을 가진 ArrayList 생성
 		for (File x : myfile.listFiles()) {
@@ -236,8 +208,8 @@ public class SetTest extends javax.swing.JFrame  {
 		int idx = file.indexOf(day + ".txt");// 특정 날짜의 파일 찾기 -1 이면 없다 -- 파일이..
 		if (idx != -1) {
 			System.out.println("index : " + idx + " " + file.get(idx));
-			List<String> results = Match.getResults(Integer.parseInt(day));
-			List<String> matches = Match.getMatches(Integer.parseInt(day));
+			List<String> results = Match.getResults(calendar);
+			List<String> matches = Match.getMatches(calendar);
 
 			if (matches.size() > 0)
 				matches = decoMatch(matches);
@@ -279,11 +251,10 @@ public class SetTest extends javax.swing.JFrame  {
 				// 경기의 수만큼
 				for (i = 0; i < matches.size(); i++) {
 					System.out.println(matches.get(i) + " " + resultText.get(i));
-					labelText.add(matches.get(i) + "        " + resultText.get(i));
+					labelText.add(matches.get(i) + " " + resultText.get(i));
 				}
 
 				System.out.println("획득 포인트(결과) : " + point);
-				
 
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -309,15 +280,15 @@ public class SetTest extends javax.swing.JFrame  {
 		int size = matches.size() / 2;
 		for (int i = 0; i < size; i++) {
 			if (i == 0) {
-				deco.add(matches.get(0) + "    vs    " + matches.get(1));
+				deco.add(matches.get(0) + " vs " + matches.get(1));
 			} else if (i == 1) {
-				deco.add(matches.get(2) + "    vs    " + matches.get(3));
+				deco.add(matches.get(2) + " vs " + matches.get(3));
 			} else if (i == 2) {
-				deco.add(matches.get(4) + "    vs    " + matches.get(5));
+				deco.add(matches.get(4) + " vs " + matches.get(5));
 			} else if (i == 3) {
-				deco.add(matches.get(6) + "    vs    " + matches.get(7));
+				deco.add(matches.get(6) + " vs " + matches.get(7));
 			} else if (i == 4) {
-				deco.add(matches.get(8) + "    vs    " + matches.get(9));
+				deco.add(matches.get(8) + " vs " + matches.get(9));
 			}
 		}
 		return deco;
@@ -329,12 +300,10 @@ public class SetTest extends javax.swing.JFrame  {
 	private javax.swing.JButton jButton1;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel2;
-	private JLabel jLabel3;
-	private JLabel jLabel4;
-	private JLabel jLabel5;
-	private JLabel jLabel6;
-	private JLabel jLabel7;
-	private JLabel jLabel8;
-	private JLabel jLabel9;
+	private JLabel JLabel3;
+	private JLabel JLabel4;
+	private JLabel JLabel5;
+	private JLabel JLabel6;
+	private JLabel JLabel7;
 
 }
