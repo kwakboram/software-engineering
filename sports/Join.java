@@ -131,10 +131,12 @@ public class Join extends javax.swing.JFrame {
             String CheckID=null;
             uPass1 = jPasswordField1.getText();
             String uPass2=jPasswordField2.getText();
+            boolean check=false;
             
             if(uPass1 == null ? uPass2 != null : !uPass1.equals(uPass2)){
                 JOptionPane.showMessageDialog(null, "비밀번호를 다시 입력하세요", "오류", JOptionPane.WARNING_MESSAGE);
-                System.exit(0);
+                check=true;
+                
             }
         
             conn = DriverManager.getConnection("jdbc:mysql://165.229.125.12:3306/members", "root", "sos123");
@@ -148,7 +150,8 @@ public class Join extends javax.swing.JFrame {
             if(CheckID == null ? uID == null : CheckID.equals(uID) || uID=="Guest")
             {
                 JOptionPane.showMessageDialog(null, "사용할 수 없는 아이디입니다.", "오류", JOptionPane.WARNING_MESSAGE);
-                System.exit(0);
+                check=true;
+                
             }
             
             
@@ -159,8 +162,9 @@ public class Join extends javax.swing.JFrame {
             pstmt.setInt(3, 1000);
             
             pstmt.executeUpdate();
-         
-            JOptionPane.showMessageDialog(null, "등록되었습니다.", "등록", JOptionPane.INFORMATION_MESSAGE);
+            if(check!=true){
+             JOptionPane.showMessageDialog(null, "등록되었습니다.", "등록", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Join.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
