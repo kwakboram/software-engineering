@@ -4,9 +4,12 @@
  * and open the template in the editor.
  */
 package sports;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 /**
  *
@@ -196,7 +199,19 @@ public class Join extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Join().setVisible(true);
+            	Join frame = new Join();
+				//창의 중앙 값을 계산한다.
+				Dimension scrnSize = Toolkit.getDefaultToolkit().getScreenSize();
+				int scrnWidth = frame.getSize().width;
+				int scrnHeight = frame.getSize().height;
+				int x = (scrnSize.width - scrnWidth)/2;
+				int y = (scrnSize.height - scrnHeight)/2;
+				//애플리케이션 창을 중앙으로 이동시킨다.
+				frame.setLocation(x,y);
+				//크기를 고정시킨다.
+				frame.setResizable(false);
+				//화면에 표시한다.
+				frame.setVisible(true);
             }
         });
     }

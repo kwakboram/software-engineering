@@ -1,6 +1,10 @@
 package sports;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.*;
+
 import java.sql.*;
 import java.util.Vector;
 
@@ -70,6 +74,15 @@ public class Ranking{
 			panel.add(button,BorderLayout.PAGE_END);
 
 			frame.setContentPane(panel);
+			//창의 중앙 값을 계산한다.
+			Dimension scrnSize = Toolkit.getDefaultToolkit().getScreenSize();
+			int scrnWidth = frame.getSize().width;
+			int scrnHeight = frame.getSize().height;
+			int x = (scrnSize.width - scrnWidth)/2;
+			int y = (scrnSize.height - scrnHeight)/2;
+			//애플리케이션 창을 중앙으로 이동시킨다.
+			frame.setLocation(x,y);
+			//화면에 표시한다.
 			frame.setVisible(true);
 			
 			JLabel jLabel1 = new JLabel();
