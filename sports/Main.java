@@ -18,16 +18,31 @@ import javax.swing.SwingWorker;
 
 public class Main extends javax.swing.JFrame {
 
+<<<<<<< HEAD
 	MultiChatServer mcs;
 	MultiChatClient mcc;
 
+=======
+
+
+	MultiChatServer mcs;
+	MultiChatClient mcc;
+
+
+>>>>>>> a3950b15fdbe8cd6852d296b488f3b4e8a54a1a5
 	public Main() {
 
 		initComponents();
 
 	}
+<<<<<<< HEAD
 	
 	//swing components 초기화
+=======
+
+	@SuppressWarnings("unchecked")
+	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+>>>>>>> a3950b15fdbe8cd6852d296b488f3b4e8a54a1a5
 	private void initComponents() {
 
 		jButton1 = new javax.swing.JButton();
@@ -173,16 +188,29 @@ public class Main extends javax.swing.JFrame {
 	}//GEN-LAST:event_jButton4MouseClicked
 
 	private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+<<<<<<< HEAD
 		
+=======
+		// TODO add your handling code here:
+
+>>>>>>> a3950b15fdbe8cd6852d296b488f3b4e8a54a1a5
 	}//GEN-LAST:event_formWindowOpened
 
 	//------------------------------------------------------------------------------------------------------------
 	private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {
+<<<<<<< HEAD
+=======
+		// TODO add your handling code here:
+>>>>>>> a3950b15fdbe8cd6852d296b488f3b4e8a54a1a5
 		Ranking.main(null);
 	}
 	//-------------------------------------------------------------------------------------------------------------
 	private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {
 		try {
+<<<<<<< HEAD
+=======
+			// TODO add your handling code here:
+>>>>>>> a3950b15fdbe8cd6852d296b488f3b4e8a54a1a5
 			dispose();
 			LogIn.main(null);
 
@@ -202,9 +230,17 @@ public class Main extends javax.swing.JFrame {
 		}
 	}
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+<<<<<<< HEAD
 	}//GEN-LAST:event_jButton1ActionPerformed
 
 	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+=======
+		// TODO add your handling code here:
+	}//GEN-LAST:event_jButton1ActionPerformed
+
+	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+		// TODO add your handling code here:
+>>>>>>> a3950b15fdbe8cd6852d296b488f3b4e8a54a1a5
 		if(LogIn.gID!="Guest"){
 			dispose();
 			SetTest.main(null);
@@ -215,7 +251,13 @@ public class Main extends javax.swing.JFrame {
 	}//GEN-LAST:event_jButton5ActionPerformed
 
 
+<<<<<<< HEAD
 	//main : 메인 프레임을 생성 후 사용자에게 보여준다.
+=======
+	/**
+	 * @param args the command line arguments
+	 */
+>>>>>>> a3950b15fdbe8cd6852d296b488f3b4e8a54a1a5
 	public static void main(String args[]) {
 
 		/* Create and display the form */
