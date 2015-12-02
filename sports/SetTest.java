@@ -5,43 +5,43 @@
  */
 package sports;
 
-import java.awt.*;
-import java.awt.event.WindowEvent;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
-import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JLabel;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
  * @author hwan
  */
-public class SetTest extends javax.swing.JFrame  {
-	
-	
+public class SetTest extends javax.swing.JFrame {
+
 	Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 	String day = Integer.toString(calendar.get(Calendar.DATE));
 	static int point;
+	static int updated;
 	static List<String> labelText;
-	
 
 	public SetTest() {
 
 		initComponents();
 	}
-
 
 	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed" desc="Generated
@@ -59,53 +59,48 @@ public class SetTest extends javax.swing.JFrame  {
 		jLabel8 = new JLabel();
 		jLabel9 = new JLabel();
 
-		//setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-		
-		this.addWindowListener( 
-			      new java.awt.event.WindowAdapter() 
-			      {
-			        public void windowClosing( java.awt.event.WindowEvent e ) 
-			        {
-			        	Main frame = new Main();
-			        	//창의 중앙 값을 계산한다.
-			        	Dimension scrnSize = Toolkit.getDefaultToolkit().getScreenSize();
-			        	int scrnWidth = frame.getSize().width;
-			        	int scrnHeight = frame.getSize().height;
-			        	int x = (scrnSize.width - scrnWidth)/2;
-			        	int y = (scrnSize.height - scrnHeight)/2;
-			        	//애플리케이션 창을 중앙으로 이동시킨다.
-			        	frame.setLocation(x,y);
-			        	//크기를 고정시킨다.
-			        	frame.setResizable(false);
-			        	//화면에 표시한다.
-			        	frame.setVisible(true);
-			          dispose() ;
-			         // System.exit( 0 );
-			        }
-			      }
-			    );
-		
-		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("결과확인");
-        setPreferredSize(new java.awt.Dimension(380	, 430));
-        setResizable(false);
-        getContentPane().setLayout(null);
-        
-        
-		jLabel1.setText(day + "일 예측 결과");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(40, 50, 124, 15);
-        
-		jLabel2.setText("획득 포인트(결과) : " + point);
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(40, 320, 200, 15);
+		// setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
-	
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+			public void windowClosing(java.awt.event.WindowEvent e) {
+				Main frame = new Main();
+				// 창의 중앙 값을 계산한다.
+				Dimension scrnSize = Toolkit.getDefaultToolkit()
+						.getScreenSize();
+				int scrnWidth = frame.getSize().width;
+				int scrnHeight = frame.getSize().height;
+				int x = (scrnSize.width - scrnWidth) / 2;
+				int y = (scrnSize.height - scrnHeight) / 2;
+				// 애플리케이션 창을 중앙으로 이동시킨다.
+				frame.setLocation(x, y);
+				// 크기를 고정시킨다.
+				frame.setResizable(false);
+				// 화면에 표시한다.
+				frame.setVisible(true);
+				dispose();
+				// System.exit( 0 );
+			}
+		});
+
+		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+		setTitle("결과확인");
+		setPreferredSize(new java.awt.Dimension(380, 430));
+		setResizable(false);
+		getContentPane().setLayout(null);
+
+		jLabel1.setText(day + "일 예측 결과");
+		getContentPane().add(jLabel1);
+		jLabel1.setBounds(40, 50, 124, 15);
+
+		jLabel2.setText("획득 포인트(결과) : " + point);
+		getContentPane().add(jLabel2);
+		jLabel2.setBounds(40, 320, 200, 15);
+
 		getContentPane().add(jButton1);
-        jButton1.setBounds(260, 320, 79, 39);
-        jButton1.setIcon(new javax.swing.ImageIcon("./image/확인.jpg"));
-        jButton1.setPressedIcon(new javax.swing.ImageIcon("./image/확인 눌림.jpg"));
-        jButton1.setBorderPainted(false);
+		jButton1.setBounds(260, 320, 79, 39);
+		jButton1.setIcon(new javax.swing.ImageIcon("./image/확인.jpg"));
+		jButton1.setPressedIcon(new javax.swing.ImageIcon("./image/확인 눌림.jpg"));
+		jButton1.setBorderPainted(false);
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton1ActionPerformed(evt);
@@ -126,35 +121,36 @@ public class SetTest extends javax.swing.JFrame  {
 			else if (i == 4)
 				jLabel7.setText(labelText.get(i));
 		}
-		
-              
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(40, 110,200, 15);
 
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(40, 150,200, 15);
+		getContentPane().add(jLabel3);
+		jLabel3.setBounds(40, 110, 200, 15);
 
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(40, 190, 200, 15);
+		getContentPane().add(jLabel4);
+		jLabel4.setBounds(40, 150, 200, 15);
 
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(40, 230, 200, 15);
+		getContentPane().add(jLabel5);
+		jLabel5.setBounds(40, 190, 200, 15);
 
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(40, 270, 200, 15);
-        
-        
-        java.text.SimpleDateFormat sd=new java.text.SimpleDateFormat("yyyy년 9월 dd일", java.util.Locale.KOREA); /////////////MM월 이어야함
-        
-        jLabel8.setText(sd.format(new java.util.Date()));
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(200, 50,150, 15);
-        
-        jLabel9.setIcon(new javax.swing.ImageIcon("./image/배경.jpg"));
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(0, 0, 380	, 430);
+		getContentPane().add(jLabel6);
+		jLabel6.setBounds(40, 230, 200, 15);
 
+		getContentPane().add(jLabel7);
+		jLabel7.setBounds(40, 270, 200, 15);
 
+		java.text.SimpleDateFormat sd = new java.text.SimpleDateFormat(
+				"yyyy년 9월 dd일", java.util.Locale.KOREA); // ///////////MM월 이어야함
+
+		jLabel8.setText(sd.format(new java.util.Date()));
+		getContentPane().add(jLabel8);
+		jLabel8.setBounds(200, 50, 150, 15);
+
+		jLabel9.setIcon(new javax.swing.ImageIcon("./image/배경.jpg"));
+		getContentPane().add(jLabel9);
+		jLabel9.setBounds(0, 0, 380, 430);
+
+		if (updated == 1) {
+			jButton1.setVisible(false);
+		}
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -162,11 +158,27 @@ public class SetTest extends javax.swing.JFrame  {
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
 		// TODO add your handling code here:
 
+		// 클릭시 현재 날짜정보를 updated.txt에 저장한다.
+		try {
+			FileWriter fw = new FileWriter("updated.txt", true);
+			fw.write(day + "\r\n");
+			fw.flush();
+			fw.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://165.229.125.12:3306/members", "root", "sos123");
+			conn = DriverManager.getConnection(
+					"jdbc:mysql://165.229.125.12:3306/members", "root",
+					"sos123");
 
 			System.out.println("mysql connect");
 			point += LogIn.gPoint;
@@ -178,7 +190,8 @@ public class SetTest extends javax.swing.JFrame  {
 			pstmt.setString(2, LogIn.gID);
 			pstmt.executeUpdate();
 		} catch (SQLException ex) {
-			Logger.getLogger(SetTest.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(SetTest.class.getName()).log(Level.SEVERE, null,
+					ex);
 		} finally {
 			if (pstmt != null)
 				try {
@@ -203,13 +216,13 @@ public class SetTest extends javax.swing.JFrame  {
 	 *            the command line arguments
 	 */
 	public static void main(String args[]) {
-		
+
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 		String day = Integer.toString(calendar.get(Calendar.DATE));
 		File myfile = new File(".");
 		List<String> file = new ArrayList<>();
 		labelText = new ArrayList<String>();
-		
+
 		// myfile.listFile
 		// .txt 즉 승부예측 파일들의 이름을 가진 ArrayList 생성
 		for (File x : myfile.listFiles()) {
@@ -220,10 +233,29 @@ public class SetTest extends javax.swing.JFrame  {
 		// .txt파일 몇개있는지 test용으로 출력
 		file.forEach(x -> System.out.println(x));
 
+		// 버튼을 활성화 시킬지 선택하는 곳
+		String cline;
+		if (file.indexOf("updated.txt") != -1) {
+			try {
+				BufferedReader check = new BufferedReader(new FileReader(
+						"updated.txt"));
+				while ((cline = check.readLine()) != null) {
+					if (cline.equals(day))
+						updated = 1;
+				}
+				check.close();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		// gui에서 아무것도 출력할게 없는 경우가 아래의 idx값이 -1일때와 matches.size() > 0 조건을 만족하지
 		// 못하는경우?
 		// 생각해보면 경기가 없다면 승부예측 한 결과도 없을테고 그렇다면 txt파일도 당연히 없을듯
-		////////////////////////////////////////////////////////////////////////////////////////////////
+		// //////////////////////////////////////////////////////////////////////////////////////////////
 		int idx = file.indexOf(day + ".txt");// 특정 날짜의 파일 찾기 -1 이면 없다 -- 파일이..
 		if (idx != -1) {
 			System.out.println("index : " + idx + " " + file.get(idx));
@@ -232,7 +264,7 @@ public class SetTest extends javax.swing.JFrame  {
 
 			if (matches.size() > 0)
 				matches = decoMatch(matches);
-			////////////////////////////////////////////////////////////////////////////////////////////////
+			// //////////////////////////////////////////////////////////////////////////////////////////////
 
 			// 아래의 리스트중 userChoices는 단순히 예측 파일의 값을 담아두기위한건데 여기서는 안쓰고 한줄 읽을때 마다
 			// 바로 비교를 함
@@ -269,12 +301,13 @@ public class SetTest extends javax.swing.JFrame  {
 				System.out.println(day + "일 예측 결과");
 				// 경기의 수만큼
 				for (i = 0; i < matches.size(); i++) {
-					System.out.println(matches.get(i) + " " + resultText.get(i));
-					labelText.add(matches.get(i) + "        " + resultText.get(i));
+					System.out
+							.println(matches.get(i) + " " + resultText.get(i));
+					labelText.add(matches.get(i) + "        "
+							+ resultText.get(i));
 				}
 
 				System.out.println("획득 포인트(결과) : " + point);
-				
 
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -283,14 +316,26 @@ public class SetTest extends javax.swing.JFrame  {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		else {
-			
+		} else {
+
 		}
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new SetTest().setVisible(true);
+				// 창의 중앙 값을 계산한다.
+				SetTest frame = new SetTest();
+				Dimension scrnSize = Toolkit.getDefaultToolkit()
+						.getScreenSize();
+				int scrnWidth = frame.getSize().width;
+				int scrnHeight = frame.getSize().height;
+				int x = (scrnSize.width - scrnWidth) / 2;
+				int y = (scrnSize.height - scrnHeight) / 2;
+				// 애플리케이션 창을 중앙으로 이동시킨다.
+				frame.setLocation(x, y);
+				// 크기를 고정시킨다.
+				frame.setResizable(false);
+				// 화면에 표시한다.
+				frame.setVisible(true);
 			}
 		});
 	}
@@ -313,8 +358,6 @@ public class SetTest extends javax.swing.JFrame  {
 		}
 		return deco;
 	}
-	
-	
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton jButton1;
