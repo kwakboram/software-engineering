@@ -130,6 +130,16 @@ public class Match extends javax.swing.JFrame {
 					e.printStackTrace();
 				} finally {
 					Main frame = new Main();
+					Dimension scrnSize = Toolkit.getDefaultToolkit().getScreenSize();
+					int scrnWidth = frame.getSize().width;
+					int scrnHeight = frame.getSize().height;
+					int x = (scrnSize.width - scrnWidth)/2;
+					int y = (scrnSize.height - scrnHeight)/2;
+					//애플리케이션 창을 중앙으로 이동시킨다.
+					frame.setLocation(x,y);
+					//크기를 고정시킨다.
+					frame.setResizable(false);
+					//화면에 표시한다.
 					frame.setVisible(true);
 					dispose();
 					 
@@ -519,14 +529,7 @@ public class Match extends javax.swing.JFrame {
 			return "3";//draw
 	}
 	private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
-		jButton1.setEnabled(true);
-		File myfile = new File(".");
-		List<String> file = new ArrayList<>();
-		for (File x : myfile.listFiles()) {
-			if (x.getName().contains(".txt"))
-				file.add(x.getName());
-		}
-		
+	
 		javax.swing.JComboBox sel_com = (javax.swing.JComboBox)evt.getSource();
 		String select = (String)sel_com.getSelectedItem();
 		
@@ -537,14 +540,6 @@ public class Match extends javax.swing.JFrame {
 		//아무것도 안보여 주기 위한 부분
 		if(select.equals("날짜를 선택해주세요")) return;
 		Visible_false();//화면 숨기기
-		
-		
-		
-		select=select.substring(0,select.length() - 1);
-		int idx = file.indexOf(select + ".txt");// 특정 날짜의 파일 찾기 -1 이면 없다 -- 파일이..
-		if (idx != -1) {
-			jButton1.setEnabled(false);
-		}
 		
 		//int date = Integer.parseInt(select);//선택한 날짜
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
