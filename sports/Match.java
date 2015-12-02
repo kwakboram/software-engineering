@@ -23,6 +23,8 @@ import java.util.TimeZone;
 
 import javax.swing.JOptionPane;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -128,6 +130,16 @@ public class Match extends javax.swing.JFrame {
 					e.printStackTrace();
 				} finally {
 					Main frame = new Main();
+					Dimension scrnSize = Toolkit.getDefaultToolkit().getScreenSize();
+					int scrnWidth = frame.getSize().width;
+					int scrnHeight = frame.getSize().height;
+					int x = (scrnSize.width - scrnWidth)/2;
+					int y = (scrnSize.height - scrnHeight)/2;
+					//애플리케이션 창을 중앙으로 이동시킨다.
+					frame.setLocation(x,y);
+					//크기를 고정시킨다.
+					frame.setResizable(false);
+					//화면에 표시한다.
 					frame.setVisible(true);
 					dispose();
 					 
@@ -218,7 +230,19 @@ public class Match extends javax.swing.JFrame {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new Match().setVisible(true);
+					Match frame = new Match();
+					//창의 중앙 값을 계산한다.
+					Dimension scrnSize = Toolkit.getDefaultToolkit().getScreenSize();
+					int scrnWidth = frame.getSize().width;
+					int scrnHeight = frame.getSize().height;
+					int x = (scrnSize.width - scrnWidth)/2;
+					int y = (scrnSize.height - scrnHeight)/2;
+					//애플리케이션 창을 중앙으로 이동시킨다.
+					frame.setLocation(x,y);
+					//크기를 고정시킨다.
+					frame.setResizable(false);
+					//화면에 표시한다.
+					frame.setVisible(true);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -504,9 +528,12 @@ public class Match extends javax.swing.JFrame {
 		else
 			return "3";//draw
 	}
-	private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+	private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
+	
 		javax.swing.JComboBox sel_com = (javax.swing.JComboBox)evt.getSource();
 		String select = (String)sel_com.getSelectedItem();
+		
+		
 		//현재날짜 기준으로 selectIndex를 더해준다.
 		int selectIndex = sel_com.getSelectedIndex();
 		
@@ -514,8 +541,6 @@ public class Match extends javax.swing.JFrame {
 		if(select.equals("날짜를 선택해주세요")) return;
 		Visible_false();//화면 숨기기
 		
-		
-		//select=select.substring(0,select.length() - 1);
 		//int date = Integer.parseInt(select);//선택한 날짜
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 		calendar.add(Calendar.DATE, selectIndex);//날짜 수정
