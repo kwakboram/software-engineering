@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * LogIn.java
+ * 로그인 기능을 제공하며, 메인화면에서 로그인 버튼을 클릭 시 사용된다.
  */
 package sports;
 import java.awt.Dimension;
@@ -21,7 +20,7 @@ public class LogIn extends javax.swing.JFrame {
     public LogIn() {
         initComponents();
     }
-
+    //swing components 초기화
     private void initComponents() {
     	
     	this.addWindowListener( 
@@ -125,26 +124,20 @@ public class LogIn extends javax.swing.JFrame {
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
         jo.main(null);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    //로그인버튼 클릭시 DB에서 입력된 로그인정보를 확인 후 처리한다.
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException {//GEN-FIRST:event_jButton1ActionPerformed
          Connection conn = null; 
          PreparedStatement pstmt = null;
          ResultSet rs = null;
         try {
-            // TODO add your handling code here:
             String uID = jTextField1.getText();
             String uPass1;
             uPass1 = jPasswordField1.getText();
-           // String url = "jdbc:mysql://165.229.125.113:3306/members";        // 사용하려는 데이터베이스명을 포함한 URL 기술
-           // String id = "root";                                                    // 사용자 계정
-          //  String pw = "sos123";     
             
             System.out.println("Ready");
-          //  Class.forName("com.mysql.jdbc.Driver");                       // 데이터베이스와 연동하기 위해 DriverManager에 등록한다.
-           // conn=DriverManager.getConnection(url,id,pw);              // DriverManager 객체로부터 Connection 객체를 얻어온다. 
             conn = DriverManager.getConnection("jdbc:mysql://165.229.125.12:3306/members", "root", "sos123");
             System.out.println("mysql connect");
             
@@ -201,13 +194,8 @@ public class LogIn extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    //main : 로그인 화면 생성 후 화면에 표시.
     public static void main(String args[]) throws SQLException, ClassNotFoundException {
-     
-                
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
             	LogIn frame = new LogIn();

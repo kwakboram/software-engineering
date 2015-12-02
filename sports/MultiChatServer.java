@@ -1,13 +1,13 @@
-package sports;
-/**
+/*
+ * MultiChatServer.java
+ * 채팅서버기능을 제공한다.
+ * 메인 화면에서 채팅 버튼을 클릭시 사용된다.
  * 자바의 정석에서 나온 멀티채팅에  GUI를 입힘.
  * GUI제작 : 아둔한사 (http://adunhansa.tistory.com)
- * 추가로 할일 또는 궁금증 : 쓰레드가 왜 계속 생기는지.. 궁금하고..
- * 또 해볼일은 현재 접속자 명단을 클라이언트 창에서 보이게 하고 싶다.
- * 2014/04/23
+ * 
  */
 
-
+package sports;
 import java.awt.BorderLayout;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

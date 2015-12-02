@@ -1,3 +1,9 @@
+/*
+ * Ranking.java
+ * 랭킹정보를 제공한다.
+ * 메인 화면에서 랭킹버튼을 클릭시 사용된다.
+ */
+
 package sports;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -10,7 +16,7 @@ import java.util.Vector;
 
 public class Ranking{
 
-
+	//main : DB에서 사용자의 정보를 점수 순으로 정렬하여 테이블에 표시한다.
 	public static void main(String[] args){
 		Connection con = null;
 		Statement st = null;

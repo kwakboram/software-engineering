@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * SetTest.java
+ * 결과확인에 해당하는 기능을 제공한다.
+ * 이 기능은 사용자의 PC에 저장 된 경기예측정보를 웹사이트의 정보와 비교하여 사용자의
+ * DB정보를 업데이트한다.
  */
 package sports;
 
@@ -43,9 +44,7 @@ public class SetTest extends javax.swing.JFrame {
 		initComponents();
 	}
 
-	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed" desc="Generated
-	// Code">//GEN-BEGIN:initComponents
+	//swing components 초기화
 	private void initComponents() {
 
 		jLabel1 = new javax.swing.JLabel();
@@ -58,8 +57,6 @@ public class SetTest extends javax.swing.JFrame {
 		jLabel7 = new JLabel();
 		jLabel8 = new JLabel();
 		jLabel9 = new JLabel();
-
-		// setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent e) {
@@ -78,7 +75,6 @@ public class SetTest extends javax.swing.JFrame {
 				// 화면에 표시한다.
 				frame.setVisible(true);
 				dispose();
-				// System.exit( 0 );
 			}
 		});
 
@@ -155,9 +151,8 @@ public class SetTest extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
+	//jButton1ActionPerformed : 사용자의 DB에 계산 된 포인트값을 업데이트
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-		// TODO add your handling code here:
-
 		// 클릭시 현재 날짜정보를 updated.txt에 저장한다.
 		try {
 			FileWriter fw = new FileWriter("updated.txt", true);
@@ -165,10 +160,8 @@ public class SetTest extends javax.swing.JFrame {
 			fw.flush();
 			fw.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -211,9 +204,8 @@ public class SetTest extends javax.swing.JFrame {
 		}
 	}// GEN-LAST:event_jButton1ActionPerformed
 
-	/**
-	 * @param args
-	 *            the command line arguments
+	/*
+	 * main : 사용자의 예측결과와 실제결과를 비교하여 업데이트 할 점수정보를 생성한다.
 	 */
 	public static void main(String args[]) {
 
@@ -223,8 +215,7 @@ public class SetTest extends javax.swing.JFrame {
 		List<String> file = new ArrayList<>();
 		labelText = new ArrayList<String>();
 
-		// myfile.listFile
-		// .txt 즉 승부예측 파일들의 이름을 가진 ArrayList 생성
+		//승부예측 파일들의 이름을 가진 ArrayList 생성
 		for (File x : myfile.listFiles()) {
 			if (x.getName().contains(".txt"))
 				file.add(x.getName());
@@ -233,7 +224,7 @@ public class SetTest extends javax.swing.JFrame {
 		// .txt파일 몇개있는지 test용으로 출력
 		file.forEach(x -> System.out.println(x));
 
-		// 버튼을 활성화 시킬지 선택하는 곳
+		// 한번 업데이트하면 중복하여 업데이트 할 수 없게한다
 		String cline;
 		if (file.indexOf("updated.txt") != -1) {
 			try {
@@ -245,18 +236,14 @@ public class SetTest extends javax.swing.JFrame {
 				}
 				check.close();
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		// gui에서 아무것도 출력할게 없는 경우가 아래의 idx값이 -1일때와 matches.size() > 0 조건을 만족하지
-		// 못하는경우?
-		// 생각해보면 경기가 없다면 승부예측 한 결과도 없을테고 그렇다면 txt파일도 당연히 없을듯
-		// //////////////////////////////////////////////////////////////////////////////////////////////
-		int idx = file.indexOf(day + ".txt");// 특정 날짜의 파일 찾기 -1 이면 없다 -- 파일이..
+		
+		//결과정보가 없는경우 어떤 처리도 하지 않는다.
+		int idx = file.indexOf(day + ".txt");
 		if (idx != -1) {
 			System.out.println("index : " + idx + " " + file.get(idx));
 			List<String> results = Match.getResults(calendar);
@@ -264,8 +251,7 @@ public class SetTest extends javax.swing.JFrame {
 
 			if (matches.size() > 0)
 				matches = decoMatch(matches);
-			// //////////////////////////////////////////////////////////////////////////////////////////////
-
+			
 			// 아래의 리스트중 userChoices는 단순히 예측 파일의 값을 담아두기위한건데 여기서는 안쓰고 한줄 읽을때 마다
 			// 바로 비교를 함
 			// resultText는 O/X/없음 중 하나를 저장한다.
@@ -275,7 +261,6 @@ public class SetTest extends javax.swing.JFrame {
 			BufferedReader fr;
 			// int point = 0; // 맞추면 +100 틀리면 -100 so simple
 			// 파일에서 한 라인씩 읽어 (파일의 값이 null 이거나 승부 결과가 0이면 무시
-			// case 1 파일에서 읽으면서 바로 처리
 			try {
 				fr = new BufferedReader(new FileReader(day + ".txt"));
 				String line;
@@ -310,10 +295,8 @@ public class SetTest extends javax.swing.JFrame {
 				System.out.println("획득 포인트(결과) : " + point);
 
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
@@ -340,6 +323,7 @@ public class SetTest extends javax.swing.JFrame {
 		});
 	}
 
+	//decoMatch : 화면에 표시하기위한 경기정보리스트를 생성한다.
 	public static List<String> decoMatch(List<String> matches) {
 		List<String> deco = new ArrayList<>();
 		int size = matches.size() / 2;

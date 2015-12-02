@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Main.java
+ * 프로그램을 실행하면 가장 먼저 뜨는 메인화면을 처리한다.
  */
 package sports;
 
@@ -19,20 +18,16 @@ import javax.swing.SwingWorker;
 
 public class Main extends javax.swing.JFrame {
 
-
-
 	MultiChatServer mcs;
 	MultiChatClient mcc;
-
 
 	public Main() {
 
 		initComponents();
 
 	}
-
-	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+	
+	//swing components 초기화
 	private void initComponents() {
 
 		jButton1 = new javax.swing.JButton();
@@ -178,19 +173,16 @@ public class Main extends javax.swing.JFrame {
 	}//GEN-LAST:event_jButton4MouseClicked
 
 	private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-		// TODO add your handling code here:
-
+		
 	}//GEN-LAST:event_formWindowOpened
 
 	//------------------------------------------------------------------------------------------------------------
 	private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {
-		// TODO add your handling code here:
 		Ranking.main(null);
 	}
 	//-------------------------------------------------------------------------------------------------------------
 	private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {
 		try {
-			// TODO add your handling code here:
 			dispose();
 			LogIn.main(null);
 
@@ -210,11 +202,9 @@ public class Main extends javax.swing.JFrame {
 		}
 	}
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-		// TODO add your handling code here:
 	}//GEN-LAST:event_jButton1ActionPerformed
 
 	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-		// TODO add your handling code here:
 		if(LogIn.gID!="Guest"){
 			dispose();
 			SetTest.main(null);
@@ -225,9 +215,7 @@ public class Main extends javax.swing.JFrame {
 	}//GEN-LAST:event_jButton5ActionPerformed
 
 
-	/**
-	 * @param args the command line arguments
-	 */
+	//main : 메인 프레임을 생성 후 사용자에게 보여준다.
 	public static void main(String args[]) {
 
 		/* Create and display the form */
